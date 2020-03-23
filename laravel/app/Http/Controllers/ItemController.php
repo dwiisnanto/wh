@@ -29,7 +29,6 @@ class ItemController extends Controller
 
     public function index()
     {
-
         $data['page_title'] = 'Items Management ';
         $data['base_route'] = $this->base_route;
         $data['items'] = Items::orderBy('id', 'desc')->get();
@@ -80,8 +79,7 @@ class ItemController extends Controller
     {
         // dd('store');
         $request->validate([
-            'description' => 'required|min:2|unique:items,description',
-            'type' => 'unique:items,type',
+            'description' => 'required|min:2',
             'qty' => 'required',
             'unit' => 'required',
             'price' => 'required',
@@ -210,7 +208,7 @@ class ItemController extends Controller
         $nama_file = rand() . $file->getClientOriginalName();
 
         // upload ke folder file_siswa di dalam folder public
-        $file->move('laravel/public/files/import', $nama_file);
+        $file->move('files/import', $nama_file);
 
         // import data
         Excel::import(new ImportItem, public_path('/files/import/' . $nama_file));

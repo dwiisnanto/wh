@@ -3,13 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PurchaseRequisition extends Model
 {
 
-    // use SoftDeletes;
+    use SoftDeletes;
     public $timestamps = true;
-    // protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 
     public function user()
     {

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Project as Projects;
 use App\ProjectItem as ProjectItems;
-use App\PurchaseOrder as PurchaseOrder;
 use App\PurchaseRequisition as PurchaseRequisitions;
 use App\PurchaseRequisitionItem as PurchaseRequisitionItems;
 use Illuminate\Http\Request;
@@ -73,8 +72,7 @@ class PurchaseRequisitionController extends Controller
     public function getNextOrderNumber($project_number)
     {
         // Get the last created order
-        $lastPR = PurchaseRequisitions::where('pr_number', 'LIKE', "%{$project_number}%")->orderBy('id', 'desc')->first();
-        // $lastPR = PurchaseRequisitions::withTrashed()->where('pr_number', 'LIKE', "%{$project_number}%")->orderBy('id', 'desc')->first();
+        $lastPR = PurchaseRequisitions::withTrashed()->where('pr_number', 'LIKE', "%{$project_number}%")->orderBy('id', 'desc')->first();
 
         if (!$lastPR)
         // We get here if there is no order at all
@@ -294,7 +292,6 @@ class PurchaseRequisitionController extends Controller
         DB::transaction(function () use ($id) {
             // PurchaseRequisitionItems::where('purchase_requisition_id', $id)->delete();
             PurchaseRequisitions::where('id', $id)->delete();
-            PurchaseOrder::where('purchase_requisition_id', $id)->delete();
         });
 
         Session::flash('delete', 'Data deleted successfully!');

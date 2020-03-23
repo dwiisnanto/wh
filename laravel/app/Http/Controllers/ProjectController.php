@@ -178,13 +178,13 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            // 'project_number' => 'required|min:6',
+            'project_number' => 'required|min:6',
             'name' => 'required|min:2',
             'customer_id' => 'required',
             // 'description' => 'required|min:2',
         ]);
 
-        // $data['project_number'] = $request->input('project_number');
+        $data['project_number'] = $request->input('project_number');
         $data['name'] = $request->input('name');
         $data['description'] = $request->input('description');
         $data['customer_id'] = $request->input('customer_id');

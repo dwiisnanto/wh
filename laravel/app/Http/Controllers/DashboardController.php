@@ -56,9 +56,8 @@ class DashboardController extends Controller
         $data['price_po_delivered'] = PurchaseOrderItems::where('status', 1)->sum('price_po');
         $data['price_po_warehouse'] = PurchaseOrderItems::where('status', 2)->sum('price_po');
         $data['last_pr'] = PurchaseRequisitions::orderBy('id', 'desc')->take(10)->get();
-
         $data['last_po'] = PurchaseOrders::orderBy('id', 'desc')->take(10)->get();
-        // dd($data['last_pr']);
+
         return view('dashboard.index', $data);
     }
 }
